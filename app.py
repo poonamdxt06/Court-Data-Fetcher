@@ -3,6 +3,7 @@ import sqlite3
 from scraper import fetch_case_details
 import os
 
+# ✅ Flask App Initialize
 app = Flask(__name__)
 DB_PATH = "case_logs.db"
 
@@ -63,5 +64,7 @@ def view_logs():
     conn.close()
     return render_template('logs.html', logs=logs)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# ✅ Render Compatible App Run
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
