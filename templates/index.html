@@ -2,97 +2,41 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🏛 Court Data Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Court Data Fetcher</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(270deg, #6a11cb, #2575fc, #ff4b1f);
-            background-size: 600% 600%;
-            animation: gradientBG 15s ease infinite;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
             min-height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
         }
-        @keyframes gradientBG { 
-            0% {background-position: 0% 50%;}
-            50% {background-position: 100% 50%;}
-            100% {background-position: 0% 50%;}
-        }
-        .dashboard-card {
-            width: 420px;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
+        .card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
             padding: 30px;
-            color: rgb(8, 8, 8);
-            animation: fadeIn 1.2s ease-in-out;
+            width: 400px;
+            box-shadow: 0px 4px 20px rgba(0,0,0,0.2);
         }
-        .logo { font-size: 28px; font-weight: bold; text-align: center; margin-bottom: 15px; }
-        .logo span { color: #0b0b0b; }
-        .form-control, .form-select {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: rgb(8, 8, 8);
-            font-weight: 500;
-        }
-        .form-control:focus, .form-select:focus {
-            background: rgba(255, 255, 255, 0.3);
-            border: 1px solid #ffcc70;
-            color: rgb(6, 6, 6);
-        }
-        .form-control::placeholder { color: rgba(13, 13, 13, 0.7); }
-        .btn-dashboard {
-            background: linear-gradient(45deg, #ff4b1f, #ff9068);
-            border: none; color: rgb(15, 15, 15); font-size: 18px; font-weight: bold;
-            padding: 10px; border-radius: 10px; transition: 0.3s ease-in-out;
-        }
-        .btn-dashboard:hover { transform: translateY(-3px); box-shadow: 0px 4px 10px rgba(255, 144, 104, 0.5); }
-        @keyframes fadeIn { from {opacity: 0; transform: translateY(20px);} to {opacity: 1; transform: translateY(0);} }
     </style>
 </head>
 <body>
-    <div class="dashboard-card">
-        <div class="logo">⚡ <span>Court Data</span> Dashboard</div>
-        <hr style="border-color: rgba(255,255,255,0.2);">
-
+    <div class="card">
+        <h3 class="text-center mb-4">🔍 Search Court Case Details</h3>
         <form action="/search" method="POST">
-            <!-- Case Type Dropdown -->
-            <div class="mb-3">
-                <label class="form-label">Case Type</label>
-                <select class="form-select" name="case_type" required>
-                    <option value="" disabled selected>-- Select Case Type --</option>
-                    <option value="Criminal">Criminal</option>
-                    <option value="Civil">Civil</option>
-                </select>
-            </div>
-
-            <!-- Case Number -->
-            <div class="mb-3">
-                <label class="form-label">Case Number</label>
-                <input type="text" class="form-control" name="case_no" placeholder="e.g. 205" required>
-            </div>
-
-            <!-- Year Dropdown -->
-            <div class="mb-3">
-                <label class="form-label">Filing Year</label>
-                <select class="form-select" name="year" required>
-                    <option value="" disabled selected>-- Select Year --</option>
-                    <script>
-                        let yearDropdown = "";
-                        for (let y = 2000; y <= 2024; y++) {
-                            yearDropdown += `<option value="${y}">${y}</option>`;
-                        }
-                        document.write(yearDropdown);
-                    </script>
-                </select>
-            </div>
-
-            <!-- Submit Button -->
-            <button type="submit" class="btn btn-dashboard w-100">🔍 Search Case</button>
+            <label>Case Type:</label>
+            <select class="form-control mb-3" name="case_type" required>
+                <option value="Criminal">Criminal</option>
+                <option value="Civil">Civil</option>
+            </select>
+            <label>Case Number:</label>
+            <input type="number" class="form-control mb-3" name="case_no" placeholder="Enter case number" required>
+            <label>Case Year:</label>
+            <input type="number" class="form-control mb-3" name="year" min="2000" max="2024" placeholder="Enter year" required>
+            <button type="submit" class="btn btn-primary w-100">Fetch Details</button>
         </form>
     </div>
 </body>
