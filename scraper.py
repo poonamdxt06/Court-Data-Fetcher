@@ -1,8 +1,5 @@
-# scraper.py (for Render Deployment - Dummy Fallback)
-import os
-
+# ✅ Dummy scraper for Render (No Selenium required)
 def fetch_case_details(case_type, case_no, year):
-    # Render me Selenium not supported, so we return dummy data
     return {
         "status": "success",
         "parties": f"Case Type: {case_type}, Case No: {case_no}/{year}",
