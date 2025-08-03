@@ -87,12 +87,12 @@
 
         <div class="card text-center">
             <h5>📑 Latest Order / Judgment</h5>
-            {% if details.pdf_link %}
-               <a href="/download?url={{ details['order_pdf'] }}" class="btn btn-primary">Download PDF</a>
-
+            {% if details['order_pdf'] %}
+    <a href="/download?url={{ details['order_pdf'] }}" class="btn btn-primary">Download PDF</a>
             {% else %}
-                <p>No order PDF available.</p>
+            <p>No PDF available</p>
             {% endif %}
+
         </div>
 
         <div class="text-center mt-3">
@@ -101,4 +101,5 @@
     </div>
 </body>
 </html>
+
 
