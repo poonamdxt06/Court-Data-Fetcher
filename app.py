@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, send_file
 import sqlite3
 import os
 from scraper import fetch_case_details
@@ -63,6 +63,24 @@ def view_logs():
     logs = c.fetchall()
     conn.close()
     return render_template('logs.html', logs=logs)
+
+# ✅ PDF Download Route
+@app.route('/download')
+def download_order():
+    pdf_url = request.args.get('url')
+    if not pdf_url:
+        return render_template('error.html', message="No PDF link provided.")
+
+    # If it's an external court PDF link, just redirect
+    if pdf_url.startswith("http"):
+        return redirect(pdf_url)
+
+    # If using local saved PDFs (optional)
+    file_path = os.path.join("static", "orders", pdf_url)
+    if os.path.exists(file_path):
+        return send_file(file_path, as_attachment=True)
+    else:
+        return render_template('error.html', message="PDF not found.")
 
 # ✅ Run App
 if __name__ == "__main__":
