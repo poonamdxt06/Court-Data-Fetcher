@@ -36,10 +36,27 @@ def search():
     case_no = request.form['case_no']
     year = request.form['year']
 
-    data = fetch_case_details(case_type, case_no, year)
+    @app.route('/search', methods=['POST'])
+def search():
+    case_type = request.form['case_type']
+    case_no = request.form['case_no']
+    year = request.form['year']
+
+    try:
+        # ✅ Try fetching case details safely
+        data = fetch_case_details(case_type, case_no, year)
+    except Exception as e:
+        # ✅ Render a custom error page if something breaks
+        return render_template('error.html', message="Unexpected error: " + str(e))
+
+    # ✅ Save Query to DB only if fetch_case_details executed
     save_log(case_type, case_no, year, data.get('raw_html', ''))
 
-    return render_template('result.html', details=data) if data['status']=="success" else f"<h3>{data['message']}</h3>"
+    if data['status'] == "success":
+        return render_template('result.html', details=data)
+    else:
+        return f"<h3>{data['message']}</h3>"
+
 
 # ✅ Admin Logs Viewer
 @app.route('/logs')
@@ -52,3 +69,4 @@ def view_logs():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
+
