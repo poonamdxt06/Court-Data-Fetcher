@@ -21,7 +21,7 @@ The app displays:
 - 📊 **Admin Logs Dashboard** (Stores search queries in SQLite)  
 - 🔍 **Court Case Lookup** (Real-time scraping with fallback)  
 - ☁️ **Cloud Deployment** on [Render](https://court-data-fetcher-p66k.onrender.com)  
-- 🔐 **Internship Ready** – Clean code, structured project, and easy to deploy
+  
 
 ---
 
@@ -37,3 +37,4 @@ The app displays:
 ---
 
 ## 📂 **Project Structure**
+
